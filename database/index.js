@@ -22,11 +22,17 @@ let save = (/* TODO */) => {
 
 let queryDB = (callback) => {
   const query = Repo.find();
-  query.sort({starsCount: -1})
+  query.sort({starsCount: -1});
+  query.limit(25);
+  query.collection(model.collection);
+  
+  
   
 }
 
-module.exports.save = save;
+exports.save = save;
+exports.queryDB = queryDB;
+
 
 /*Query.prototype.sort()
 
