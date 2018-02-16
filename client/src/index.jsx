@@ -15,7 +15,12 @@ class App extends React.Component {
 
   search (term) {
     console.log(`${term} was searched`);
-    // TODO
+    $.post('/repos', term, function(err, data){
+      if (err) {
+        console.error(err)
+      }
+      console.log('Post success!');
+    })
   }
 
   render () {
