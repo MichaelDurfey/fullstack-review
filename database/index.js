@@ -27,7 +27,6 @@ let dropData = (callback) => {
 }
 
 let save = (body, callback) => {
-  console.log('save ', body)
   Repo.create(body, function(err, result){
       if (err){
         handleError(err)
@@ -38,7 +37,7 @@ let save = (body, callback) => {
 
 let queryDB = (callback) => {
   var query = Repo.find();
-  query.limit(25);
+  query.limit(40);
   query.sort('-stars');
   query.select('id name login url stars');
   query.exec(function(err, docs){
