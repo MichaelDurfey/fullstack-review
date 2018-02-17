@@ -11,7 +11,7 @@ app.use(bodyParser.json());
 app.post('/repos', function (req, res) {
   // TODO - your code here!
   // This route should take the github username provided
-  // and get the repo information from the github API, then
+  // and get the repo information freeom the github API, then
   // save the repo information in the database
   let term = req.body.searchTerm;
 
