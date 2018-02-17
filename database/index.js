@@ -1,33 +1,41 @@
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/fetcher');
 
+// var db = mongoose.connection;
+
 let repoSchema = mongoose.Schema({
-  Id: Number,
+  id: Number,
   name: String,
   login: String,
   url: String,
-  pushed_at: String,
-  starsCount: Number
+  stars: Number
 });
 
-repoSchema.set('toJSON', {getters: true, virtuals: false});
+// repoSchema.set('toJSON', {getters: true, virtuals: false});
 
 let Repo = mongoose.model('Repo', repoSchema);
 
-let save = (/* TODO */) => {
-  // TODO: Your code here
-  // This function should save a repo or repos to
-  // the MongoDB
+let save = (body, callback) => {
+  console.log('save ', body)
+  Repo.create(body, function(err, result){
+      if (err){
+        handleError(err)
+      }
+        callback(null, 200)
+    });
 }
 
 let queryDB = (callback) => {
-  const query = Repo.find();
-  query.sort({starsCount: -1});
+  var query = Repo.find();
   query.limit(25);
-  query.collection(model.collection);
-  
-  
-  
+  query.sort('-stars');
+  query.select('id name login url stars');
+  query.exec(function(err, docs){
+    if (err){
+      return handleError(err);
+    }
+    callback(null, docs);
+  });
 }
 
 exports.save = save;

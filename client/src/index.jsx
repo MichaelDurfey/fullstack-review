@@ -12,14 +12,30 @@ class App extends React.Component {
     }
 
   }
+  
+  componentWillMount(){
+    this.get();
+  }
+  
+  get(){
+    let that = this;
+    $.get({
+      url: '/repos',
+      headers: {"Content-Type": "application/json"},
+      success: function(data){
+        that.setState({repos: data});
+      }
+    })
+  }
 
   search (term) {
     console.log(`${term} was searched`);
-    $.post('/repos', term, function(err, data){
-      if (err) {
-        console.error(err)
-      }
-      console.log('Post success!');
+    let data = {searchTerm: term};
+    data = JSON.stringify(data);
+    $.post({
+      url: '/repos',
+      headers: {"Content-Type": "application/json"},
+      data: data
     })
   }
 
