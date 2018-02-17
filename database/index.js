@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
+const uniqueValidator = require('mongoose-unique-validator');
 mongoose.connect('mongodb://localhost/fetcher');
 
-// var db = mongoose.connection;
+var db = mongoose.connection;
 
 let repoSchema = mongoose.Schema({
   id: Number,
@@ -11,9 +12,19 @@ let repoSchema = mongoose.Schema({
   stars: Number
 });
 
+repoSchema.plugin(uniqueValidator);
+
 // repoSchema.set('toJSON', {getters: true, virtuals: false});
 
 let Repo = mongoose.model('Repo', repoSchema);
+
+let dropData = (callback) => {
+  Repo.collection.drop(function(err, done){
+    if (err) {
+      console.error(err);
+    }
+  })
+}
 
 let save = (body, callback) => {
   console.log('save ', body)
@@ -40,6 +51,7 @@ let queryDB = (callback) => {
 
 exports.save = save;
 exports.queryDB = queryDB;
+exports.dropData = dropData;
 
 
 /*Query.prototype.sort()

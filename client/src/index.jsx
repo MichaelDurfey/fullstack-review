@@ -8,7 +8,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = { 
-      repos: []
+      repos: [],
     }
 
   }
@@ -27,6 +27,17 @@ class App extends React.Component {
       }
     })
   }
+  
+  dropData(){
+    let that = this;
+    $.ajax({
+      url: '/repos',
+      headers: {"Content-Type": "application/json"},
+      method: 'DELETE',
+      success: function(){
+      }
+    }).done(() => this.get())
+  }
 
   search (term) {
     console.log(`${term} was searched`);
@@ -36,7 +47,7 @@ class App extends React.Component {
       url: '/repos',
       headers: {"Content-Type": "application/json"},
       data: data
-    })
+    }).done(()=> this.get())
   }
 
   render () {
@@ -44,6 +55,7 @@ class App extends React.Component {
       <h1>Github Fetcher</h1>
       <RepoList repos={this.state.repos}/>
       <Search onSearch={this.search.bind(this)}/>
+      <button onClick={() => this.dropData()}>Drop Data</button>
     </div>)
   }
 }
