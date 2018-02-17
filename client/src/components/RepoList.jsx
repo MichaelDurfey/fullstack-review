@@ -3,15 +3,14 @@ import Tablerow from './Tablerow.jsx'
 
 const RepoList = (props) => {
   return (
-  <div>
-    <h4> Repo List Component </h4>
+  <div className ="repoList">
     There are {props.repos.length} repos.
       <table className = 'table'>
         <thead>
           <tr>
-            <th>name</th>
-            <th>login</th>
-            <th>stars</th>
+            <th>Name</th>
+            <th>User</th>
+            <th>Stars</th>
           </tr>
         </thead>
         <tbody>

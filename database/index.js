@@ -4,6 +4,11 @@ mongoose.connect('mongodb://localhost/fetcher');
 
 var db = mongoose.connection;
 
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+  // we're connected!
+});
+
 let repoSchema = mongoose.Schema({
   id: Number,
   name: String,
@@ -24,6 +29,10 @@ let dropData = (callback) => {
       console.error(err);
     }
   })
+}
+
+let findUserData = (user) => {
+
 }
 
 let save = (body, callback) => {

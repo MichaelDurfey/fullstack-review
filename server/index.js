@@ -56,12 +56,11 @@ app.get('/repos', function (req, res) {
     if (err) {
       return handleError(err);
     }
-    console.log('db.query data! ', data);
     res.send(data);
   })
 });
 
-let port = 1128;
+let port = process.env.port || 1128;
 
 app.listen(port, function() {
   console.log(`listening on port ${port}`);
