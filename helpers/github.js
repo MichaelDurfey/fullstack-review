@@ -13,7 +13,7 @@ let getReposByUsername = (name, callback) => {
     url: `https://api.github.com/users/${name}/repos`,
     headers: {
       'User-Agent': 'request',
-      'Authorization': `token ${config.TOKEN}`
+      'Authorization': `token ${process.env.TOKEN}`
     }
   };
   request(options, (err, response, body) => {

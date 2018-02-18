@@ -1,13 +1,8 @@
 const mongoose = require('mongoose');
 const uniqueValidator = require('mongoose-unique-validator');
-mongoose.connect('mongodb://localhost/fetcher');
+mongoose.connect(process.env.MONGODB_URI);
 // process.env.MONGODB_URI
 var db = mongoose.connection;
-
-// db.on('error', console.error.bind(console, 'connection error:'));
-// db.once('open', function() {
-//   // we're connected!
-// });
 
 let repoSchema = mongoose.Schema({
   id: Number,
@@ -19,8 +14,6 @@ let repoSchema = mongoose.Schema({
 
 repoSchema.plugin(uniqueValidator);
 
-// repoSchema.set('toJSON', {getters: true, virtuals: false});
-
 let Repo = mongoose.model('Repo', repoSchema);
 
 
@@ -31,12 +24,6 @@ let dropData = (callback) => {
     }
   })
 }
-
-// let findUserData = (user) => {
-//   var query = Repo.find({
-//     login
-//   })
-// }
 
 let save = (body, callback) => {
   Repo.create(body, function(err, result){
