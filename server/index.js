@@ -19,7 +19,6 @@ app.post('/repos', function (req, res) {
     if (err) {
       console.error(err);
     }
-    
     let newBody = JSON.parse(body).map( (item) => {
       let result = {};
       result.id = item.id;
@@ -30,7 +29,7 @@ app.post('/repos', function (req, res) {
       return result;
     })
     
-    db.save(newBody, function(err, data){
+    db.save(newBody, function(err, users, data){
       if (err) {
         console.log(err);
       } else {

@@ -9,6 +9,7 @@ class App extends React.Component {
     super(props);
     this.state = { 
       repos: [],
+      users: []
     }
 
   }
@@ -23,13 +24,15 @@ class App extends React.Component {
       url: '/repos',
       headers: {"Content-Type": "application/json"},
       success: function(data){
+        console.log(data);
+        let users = data.map(repo => repo.login);
+        that.setState({users: users});
         that.setState({repos: data});
       }
     })
   }
   
   dropData(){
-    let that = this;
     $.ajax({
       url: '/repos',
       headers: {"Content-Type": "application/json"},
@@ -56,7 +59,7 @@ class App extends React.Component {
       <h1>Github Fetcher</h1>
       <Search onSearch={this.search.bind(this)}/>
       <button onClick={() => this.dropData()}>Drop Data</button>
-      <RepoList repos={this.state.repos}/>
+      <RepoList users={this.state.users}repos={this.state.repos}/>
     </div>)
   }
 }
