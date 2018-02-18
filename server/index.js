@@ -41,10 +41,6 @@ app.post('/repos', function (req, res) {
   //https://api.github.com/users/${name}/repos
 });
 
-app.get('/', function(req, res) {
-  res.send(200);
-})
-
 app.delete('/repos', function(req, res) {
   
   db.dropData()
