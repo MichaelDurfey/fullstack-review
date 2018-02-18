@@ -14,20 +14,31 @@ class App extends React.Component {
 
   }
   
-  componentWillMount(){
+  // componentWillMount(){
+  //   "Accept: application/vnd.heroku+json; version=3"
+  //   $.get({
+  //     url: '/',
+  //     headers: {"Accept": "application/vnd.heroku+json; version=3"},
+  //     success: function(data){
+  //       console.log(data);
+  //     }
+  //   })
+  // }
+
+  componentDidMount() {
     this.get();
   }
   
   get(){
-    let that = this;
+    let app = this;
     $.get({
       url: '/repos',
       headers: {"Content-Type": "application/json"},
       success: function(data){
         console.log(data);
         let users = data.map(repo => repo.login);
-        that.setState({users: users});
-        that.setState({repos: data});
+        app.setState({users: users});
+        app.setState({repos: data});
       }
     })
   }
